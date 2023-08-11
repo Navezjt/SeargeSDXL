@@ -2,10 +2,43 @@
 *Custom nodes extension* for [ComfyUI](https://github.com/comfyanonymous/ComfyUI)
 including *a workflow* to use *SDXL 1.0* with both the *base and refiner* checkpoints.
 
-# Version 3.1
+
+# Version 3.4
 Instead of having separate workflows for different tasks, everything is now integrated in **one workflow file**.
 
-<img src="https://github.com/SeargeDP/SeargeSDXL/blob/main/example/Searge-SDXL-Overview.png" width="768">
+### Always use the latest version of the workflow json file with the latest version of the custom nodes!
+
+<img src="https://github.com/SeargeDP/SeargeSDXL/blob/main/example/Searge-SDXL-Example.png" width="768">
+
+
+## What's new in v3.4?
+- Minor tweaks and fixes and the beginnings of some code restructuring, nothing user should notice in the workflows
+- Preparations for more upcoming improvements in a compatible way
+- Added compatibility with v1.x workflows, these have been used in some tutorials and did not work anymore with newer
+versions of the extension
+- *(backwards compatibility with v2.x and older v3.x version - before v3.3 - is unfortunately not possible)*
+
+## What about v3.3?
+- Starting from v3.3 the custom node extension will always be compatible with workflows created with v3.3 or later
+- *(backwards compatibility with v2.x, v3.0, v3.1. and v3.2 workflows is unfortunately not possible)*
+- Going forward, older versions of workflow will remain in the `workflow` folder, I still highly recommend to **always 
+use the latest version** and loading it **from the JSON file** instead of the example images 
+- *Version 3.3 has never been publicly released*
+
+## What's new in v3.2?
+- More prompting modes, including the "3-prompt" style that's common in other workflows
+using separate prompts for the 2 CLIP models in SDXL (CLIP G & CLIP L) and a negative prompt
+  - **3-Prompt G+L-N** - Similar to simple mode, but cares about *a main, a secondary, and a negative prompt*
+and **ignores** the *additional style prompting fields*, this is great to get similar results as on other
+workflows and makes it easier to compare the images
+  - **Subject - Style** - The *subject focused* positives with the *style focused* negatives
+  - **Style - Subject** - The *style focused* positives with the *subject focused* negatives
+  - **Style Only** - **Only** the positive and negative **style prompts** are used and *main/secondary/negative are ignored*
+  - **Weighted - Overlay** - The positive prompts are *weighted* and the negative prompts are *overlaid*
+  - **Overlay - Weighted** - The positive prompts are *overlaid* and the negative prompts are *weighted*
+- Better bug fix for the "exploding" the search box issue, should finally be fixed *(for real)* now
+- Some additional node types to make it easier to still use my nodes in other custom workflows
+- The custom node extension should now also work on **Python 3.9** again, it required 3.10 before
 
 ## What's new in v3.1?
 - Fixed the issue with "exploding" the search box when this extension is installed
@@ -42,7 +75,7 @@ style for now (called *test*)
 separate for *main pass* and *hires-fix pass*
 - *(... many more things probably, since the workflow was almost completely re-made)*
 
-<img src="https://github.com/SeargeDP/SeargeSDXL/blob/main/example/Searge-SDXL-Example.png" width="768">
+<img src="https://github.com/SeargeDP/SeargeSDXL/blob/main/example/Searge-SDXL-UI.png" width="768">
 
 
 
@@ -77,26 +110,39 @@ separate for *main pass* and *hires-fix pass*
 - download [SDXL 1.0 base](https://huggingface.co/stabilityai/stable-diffusion-xl-base-1.0/resolve/main/sd_xl_base_1.0.safetensors) and copy it into `ComfyUI/models/checkpoints`
 - download [SDXL 1.0 refiner](https://huggingface.co/stabilityai/stable-diffusion-xl-refiner-1.0/resolve/main/sd_xl_refiner_1.0.safetensors) and copy it into `ComfyUI/models/checkpoints`
 - download [Fixed SDXL 0.9 vae](https://huggingface.co/madebyollin/sdxl-vae-fp16-fix/resolve/main/sdxl_vae.safetensors) and copy it into `ComfyUI/models/vae`
-- download [SDXL Offset Noise LoRA](https://huggingface.co/stabilityai/stable-diffusion-xl-base-1.0/resolve/main/sd_xl_offset_example-lora_1.0.safetensors) and copy it into `ComfyUI/models/loras`
+- download [SDXL Offset Noise LoRA](https://huggingface.co/stabilityai/stable-diffusion-xl-base-1.0/resolve/main/sd_xl_offset_example-lora_1.0.safetensors)
+and copy it into `ComfyUI/models/loras`
 - download [4x_NMKD-Siax_200k upscaler](https://huggingface.co/uwg/upscaler/resolve/main/ESRGAN/4x_NMKD-Siax_200k.pth) and copy it into `ComfyUI/models/upscale_models`
 - download [4x-UltraSharp upscaler](https://huggingface.co/uwg/upscaler/resolve/main/ESRGAN/4x-UltraSharp.pth) and copy it into `ComfyUI/models/upscale_models`
 
 
 
 # More Information
-Now **3** operating modes are included in in the workflow, the *.json-file* for it is in the `workflow` folder.
+Now **3** operating modes are included in the workflow, the *.json-file* for it is in the `workflow` folder.
 They are called *text2image*, *image2image*, and *inpainting*.
 
-The simple workflow has not returned as a separate workflow, but is now also fully integrated.
-To enable it, switch the **prompt mode** option to simple and it will only pay attention to the main prompt
-and the negative prompt.
+The simple workflow has not returned as a separate workflow, but is now also *fully integrated*.
+
+To enable it, switch the **prompt mode** option to **simple** and it will only pay attention to the *main prompt*
+and the *negative prompt*.
+
+Or switch the **prompt mode** to **3 prompts** and only the *main prompt*, the *secondary prompt*, and the
+*negative prompt* are used.
 
 
 
-## Workflow Description
+# The Workflow
+The workflow is included in the `workflow` folder.
 
-### Reborn
-The **Reborn v3.0** workflow is a new workflow, created from scratch. It requires the latest additions to the
+**After updating Searge SDXL, always make sure to load the latest version of the json file. Older versions of the
+workflow are often not compatible anymore with the updated node extension.**
+
+<img src="https://github.com/SeargeDP/SeargeSDXL/blob/main/example/Searge-SDXL-Overview.png" width="768">
+
+
+
+# Searge SDXL Reborn Workflow Description
+The **Reborn v3.x** workflow is a new workflow, created from scratch. It requires the latest additions to the
 SeargeSDXL custom node extension, because it makes use of some new node types.
 
 The interface for using this new workflow is also designed in a different way, with all parameters that
@@ -106,8 +152,27 @@ important element on the screen at the same time without scrolling.
 Starting from version 3.0 all 3 operating modes (text-to-image, image-to-image, and inpainting) are available
 from the same workflow and can be switched with an option.
 
-### Image to Image
-In this workflow you should first copy an image into the `ConfyUI/input` directory.
+## Video
+
+[The amazing Youtube channel Nerdy Rodent has a video about this workflow](https://www.youtube.com/watch?v=_Qi0Dgrz1TM).
+
+*(and while you are watching the video, don't forget to subscribe to their channel)*
+
+
+## Reborn Workflow v3.x Operating Modes
+
+<img src="https://github.com/SeargeDP/SeargeSDXL/blob/main/example/UI-operation-mode.png" width="512">
+
+### Text to Image Mode
+In this mode you can generate images from text descriptions. The source image and the mask (next to the prompt inputs)
+are not used in this mode.
+
+<img src="https://github.com/SeargeDP/SeargeSDXL/blob/main/example/Searge-SDXL-workflow-1.png" width="768">
+<br>
+<img src="https://github.com/SeargeDP/SeargeSDXL/blob/main/example/Searge-SDXL-reborn.png" width="512">
+
+### Image to Image Mode
+In this mode you should first copy an image into the `ConfyUI/input` directory.
 Alternatively you can change the option for the **save directory** to **input folder** when generating images, in that
 case you have to press the ComfyUI *Refresh* button and it should show up in the image loader node.
 
@@ -121,51 +186,91 @@ Ranges are from *0.0* for "no change" to *1.0* for "completely change".
 Good values to try are probably in the *0.2* to *0.8* range.
 With examples of *0.25* for "very little change", *0.5* for "some changes", or *0.75* for "a lot of changes"
 
-### Inpainting
-This is similar to the image to image workflow.
+<img src="https://github.com/SeargeDP/SeargeSDXL/blob/main/example/Searge-SDXL-workflow-2.png" width="768">
+<br>
+<img src="https://github.com/SeargeDP/SeargeSDXL/blob/main/example/Searge-SDXL-img2img.png" width="512">
+
+### Inpainting Mode
+This is similar to the image to image mode.
 But it also lets you define a mask for selective changes of only parts of the image.
 
-To use this workflow, prepare a source image the same way as described in the image to image workflow.
+To use this mode, prepare a source image the same way as described in the image to image workflow.
 Then **right click** on the *Inpainting Mask* image (the bottom one next to the input prompts) and select
 **Open in Mask Editor**.
 
 Paint your mask and then press the *Save to node* button when you are done.
 The *Denoise* parameter works the same way as in image to image, but only masked areas will be changed.
 
-
-
-# The Workflow
-The workflow is included in the `workflow` folder.
-
-## Reborn Workflow v3.0 Operating Modes
-
-### Text to Image Mode
-
-<img src="https://github.com/SeargeDP/SeargeSDXL/blob/main/example/Searge-SDXL-workflow-1.png" width="768">
-
-### Image to Image Mode
-
-<img src="https://github.com/SeargeDP/SeargeSDXL/blob/main/example/Searge-SDXL-workflow-2.png" width="768">
-
-### Inpainting Mode
-
 <img src="https://github.com/SeargeDP/SeargeSDXL/blob/main/example/Searge-SDXL-workflow-3.png" width="768">
+<br>
+<img src="https://github.com/SeargeDP/SeargeSDXL/blob/main/example/Searge-SDXL-inpaint.png" width="512">
 
 
 
-## Example images generated with these operating modes
+# Prompting Modes
 
-### Reborn Workflow
+<img src="https://github.com/SeargeDP/SeargeSDXL/blob/main/example/UI-prompt-style.png" width="512">
 
-<img src="https://github.com/SeargeDP/SeargeSDXL/blob/main/example/Searge-SDXL-reborn.png" width="768">
+## Reborn Workflow v3.x Prompting Modes
 
-### Image to Image Workflow
+### Simple
+Just cares about the **main** and the **negative** prompt and **ignores** the *additional prompting fields*, this
+is great to get started with SDXL, ComfyUI, and this workflow
 
-<img src="https://github.com/SeargeDP/SeargeSDXL/blob/main/example/Searge-SDXL-img2img.png" width="768">
+<img src="https://github.com/SeargeDP/SeargeSDXL/blob/main/example/01-simple.jpg" width="512">
 
-### Inpainting Workflow
+### 3-Prompt G+L-N
+Similar to simple mode, but cares about the **main & secondary** and the **negative** prompt
+and **ignores** the *additional style prompting fields*, this is great to get similar results as on other
+workflows and makes it easier to compare the images
 
-<img src="https://github.com/SeargeDP/SeargeSDXL/blob/main/example/Searge-SDXL-inpaint.png" width="768">
+<img src="https://github.com/SeargeDP/SeargeSDXL/blob/main/example/02-3_prompts.jpg" width="512">
+
+### Subject Focus
+In this mode the *main & secondary* prompts are **more important** than the *style* prompts
+
+<img src="https://github.com/SeargeDP/SeargeSDXL/blob/main/example/03-subject_focus.jpg" width="512">
+
+### Style Focus
+In this mode the *style* prompts are **more important** than the *main & secondary* prompts
+
+<img src="https://github.com/SeargeDP/SeargeSDXL/blob/main/example/04-style_focus.jpg" width="512">
+
+### Weighted
+In this mode the **balance** between *main & secondary* prompts and *style prompts* can be influenced with
+the **style prompt power** and **negative prompt power** option
+
+<img src="https://github.com/SeargeDP/SeargeSDXL/blob/main/example/05-weighted.jpg" width="512">
+
+### Overlay
+In this mode the *main & secondary* prompts and the *style* prompts are **competing with each other**
+
+<img src="https://github.com/SeargeDP/SeargeSDXL/blob/main/example/06-overlay.jpg" width="512">
+
+### Subject - Style
+The *main & secondary* positives with the *style* negatives
+
+<img src="https://github.com/SeargeDP/SeargeSDXL/blob/main/example/07-subject-style.jpg" width="512">
+
+### Style - Subject
+The *style* positives with the *main & secondary* negatives
+
+<img src="https://github.com/SeargeDP/SeargeSDXL/blob/main/example/08-style-subject.jpg" width="512">
+
+### Style Only
+**Only** the *style* prompt and *negative style* prompt are used, the *main & secondary* and *negative* are ignored
+
+<img src="https://github.com/SeargeDP/SeargeSDXL/blob/main/example/09-style_only.jpg" width="512">
+
+### Weighted - Overlay
+The *main & secondary* and *style* prompts are **weighted**, the *negative* and *negative style* prompts are **overlaid**
+
+<img src="https://github.com/SeargeDP/SeargeSDXL/blob/main/example/10-weighted-overlay.jpg" width="512">
+
+### Overlay - Weighted
+The *main & secondary* and *style* prompts are **overlaid**, the *negative* and *negative style* prompts are **weighted**
+
+<img src="https://github.com/SeargeDP/SeargeSDXL/blob/main/example/11-overlay-weighted.jpg" width="512">
 
 
 
@@ -183,8 +288,10 @@ understand better how the included workflows work.
 
 ### Inputs
 - **base_model** - connect the SDXL base model here, provided via a `Load Checkpoint` node 
-- **base_positive** - recommended to use a `CLIPTextEncodeSDXL` with 4096 for `width`, `height`, `target_width`, and `target_height`
-- **base_negative** - recommended to use a `CLIPTextEncodeSDXL` with 4096 for `width`, `height`, `target_width`, and `target_height`
+- **base_positive** - recommended to use a `CLIPTextEncodeSDXL` with 4096 for `width`, `height`,
+`target_width`, and `target_height`
+- **base_negative** - recommended to use a `CLIPTextEncodeSDXL` with 4096 for `width`, `height`,
+`target_width`, and `target_height`
 - **refiner_model** - connect the SDXL refiner model here, provided via a `Load Checkpoint` node 
 - **refiner_positive** - recommended to use a `CLIPTextEncodeSDXLRefiner` with 2048 for `width`, and `height`
 - **refiner_negative** - recommended to use a `CLIPTextEncodeSDXLRefiner` with 2048 for `width`, and `height`
@@ -192,9 +299,11 @@ understand better how the included workflows work.
 - **noise_seed** - the random seed for generating the image
 - **steps** - total steps for the sampler, it will internally be split into base steps and refiner steps
 - **cfg** - CFG scale (classifier free guidance), values between 3.0 and 12.0 are most commonly used
-- **sampler_name** - the noise sampler _(I prefer dpmpp_2m with the karras scheduler, sometimes ddim with the ddim_uniform scheduler)_
+- **sampler_name** - the noise sampler _(I prefer dpmpp_2m with the karras scheduler, sometimes ddim
+with the ddim_uniform scheduler)_
 - **scheduler** - the scheduler to use with the sampler selected in `sampler_name`
-- **base_ratio** - the ratio between base model steps and refiner model steps _(0.8 = 80% base model and 20% refiner model, with 30 total steps that's 24 base steps and 6 refiner steps)_
+- **base_ratio** - the ratio between base model steps and refiner model steps _(0.8 = 80% base model and 20% refiner
+model, with 30 total steps that's 24 base steps and 6 refiner steps)_
 - **denoise** - denoising factor, keep this at 1.0 when creating new images from an empty latent and between 0.0-1.0 in the img2img workflow
 
 ### Outputs
