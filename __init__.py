@@ -26,7 +26,17 @@ SOFTWARE.
 
 """
 
-from .searge_sdxl_sampler_node import NODE_CLASS_MAPPINGS, NODE_DISPLAY_NAME_MAPPINGS
+import os
 
+import folder_paths
+
+from .modules._legacy import LEGACY_CLASS_MAPPINGS, LEGACY_DISPLAY_NAME_MAPPINGS
+
+from .searge_sdxl import SEARGE_CLASS_MAPPINGS, SEARGE_DISPLAY_NAME_MAPPINGS
+
+folder_paths.add_model_folder_path("annotators", os.path.join(folder_paths.models_dir, "annotators"))
+
+NODE_CLASS_MAPPINGS = SEARGE_CLASS_MAPPINGS | LEGACY_CLASS_MAPPINGS
+NODE_DISPLAY_NAME_MAPPINGS = SEARGE_DISPLAY_NAME_MAPPINGS | LEGACY_DISPLAY_NAME_MAPPINGS
 
 __all__ = ['NODE_CLASS_MAPPINGS', 'NODE_DISPLAY_NAME_MAPPINGS']
