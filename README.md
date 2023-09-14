@@ -11,7 +11,7 @@
 <!-- TOC -->
 * [Searge-SDXL: EVOLVED v4.x for ComfyUI](#searge-sdxl-evolved-v4x-for-comfyui)
 * [Table of Content](#table-of-content)
-* [Version 4.0](#version-40)
+* [Version 4.1](#version-41)
     * [Always use the latest version of the workflow json file with the latest version of the custom nodes!](#always-use-the-latest-version-of-the-workflow-json-file-with-the-latest-version-of-the-custom-nodes)
 * [Installing and Updating](#installing-and-updating)
   * [New and Recommended Installation (Windows)](#new-and-recommended-installation-windows)
@@ -22,6 +22,9 @@
     * [Description](#description)
     * [Direct Downloads](#direct-downloads)
 * [Updates](#updates)
+  * [What's new in v4.1?](#whats-new-in-v41)
+    * [Bug Fixes](#bug-fixes)
+    * [Other Changes](#other-changes)
   * [What's new in v4.0?](#whats-new-in-v40)
     * [Major Highlights](#major-highlights)
     * [Smaller Changes and Additions](#smaller-changes-and-additions-)
@@ -38,7 +41,7 @@
 
 
 
-# Version 4.0
+# Version 4.1
 
 Instead of having separate workflows for different tasks, everything is integrated in **one workflow file**.
 
@@ -199,7 +202,20 @@ on the workflow. Do so by clicking on the filename in the workflow UI and select
 Find information about the latest changes here.
 
 
+## What's new in v4.1?
+This update contains bug fixes that address issues found after v4.0 was released.
+
+### Bug Fixes
+- The high resolution latent detailer was not properly set up in the processing pipeline and did nothing
+- The debug printer node was broken - I didn't notice that because it was not connected in any of the v4.0 workflows
+- A bug related to generating with batch sizes larger than 1 has been fixed, it's now working properly
+
+### Other Changes
+- The images in the `examples` folder have been updated to embed the v4.1 workflow
+
+
 ## What's new in v4.0?
+This is the first release with the v4.x architecture of the custom node extension.
 
 ### Major Highlights
 - A **complete re-write** of the custom node extension and the SDXL workflow 
